@@ -1,0 +1,71 @@
+﻿{
+    "$schema": "http://json.schemastore.org/template",
+    "author": "Joel Bennett",
+    "classifications": [
+        "Common"
+    ],
+    "name": "PowerShell Example Module",
+    "identity": "LoanDepot.PowerShell.Template.ExampleModule",
+    "shortName": "PSExample",
+    "tags": {
+      "language": "PowerShell",
+      "type": "project"
+    },
+    "sources": [
+        {
+            "source": "../../",
+            "target": "./",
+            "include": [
+                ".vscode/*",
+                "src/**/*",
+                "tests/**/*",
+                "**/*.md",
+                "azure-pipelines.yml",
+                "build.psd1",
+                "LICENSE.txt",
+                "module.build.ps1",
+                "RequiredModules.psd1",
+                "ScriptAnalyzerSettings.psd1"
+            ],
+            "rename": {
+                "PowerShellTemplate/PowerShellTemplate.md": "README.md"
+            }
+        }
+    ],
+    "symbols": {
+        "name": {
+            "type": "parameter",
+            "isRequired": true,
+            "FileRename": "PowerShellTemplate",
+            "replaces": "PowerShellTemplate"
+        },
+        "author": {
+            "type": "parameter",
+            "defaultValue": "DevOps Heroes",
+            "replaces": "DevOps Heroes"
+        },
+        "company": {
+            "type": "parameter",
+            "defaultValue": "loanDepot.com, LLC",
+            "replaces": "loanDepot.com, LLC"
+        },
+        "description": {
+            "type": "parameter",
+            "isRequired": true,
+            "defaultValue": "A PowerShell Module for ...",
+            "replaces": "A Template for PowerShell Modules"
+        },
+        "year": {
+          "type": "generated",
+          "generator": "now",
+          "parameters": {
+            "format": "yyyy"
+          },
+          "replaces":"2022"
+        }
+    },
+    "guids": [
+        "c3a4c064-f441-4b05-b08f-b65d2b20072c"
+    ],
+    "placeholderFilename": "placeholder"
+}

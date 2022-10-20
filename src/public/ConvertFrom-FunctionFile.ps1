@@ -1,9 +1,9 @@
 ﻿function ConvertFrom-FunctionFile {
     <#
-        .Synopsis
+        .SYNOPSIS
             Exports all functions from a PS*1 file and stores them in separate function files
-        
-        .Description
+
+        .DESCRIPTION
             Using AST, extracts all function definitions from specified files, and create
             a file per function within the module directory provided. This does not currently
             rewrite the specified file in any way.
@@ -11,7 +11,7 @@
         .Link
             GetScriptFunctions
 
-        .Example
+        .EXAMPLE
             ConvertFrom-FunctionFile -Path .\functions.ps1 -OutputPath C:\Git\NewModule\ -Verbose
             VERBOSE: Created Public Function 'Test-PublicFunction'
             VERBOSE: Created Private Function 'TestPrivateFunction'

@@ -1,0 +1,46 @@
+{
+    "$schema": "http://json.schemastore.org/template",
+    "author": "Joel Bennett",
+    "classifications": [
+        "Common", "Function"
+    ],
+    "name": "PowerShell Function Template",
+    "identity": "loanDepot.PowerShell.Template.Function",
+    "shortName": "PSFunction",
+    "tags": {
+      "language": "PowerShell",
+      "type": "item"
+    },
+    "sources": [
+        {
+            "source": "../../",
+            "target": "./",
+            "include": [
+                "**/New-Function.*"
+            ]
+        }
+    ],
+    "symbols": {
+        "name": {
+            "type": "parameter",
+            "isRequired": true,
+            "FileRename": "New-Function",
+            "replaces": "New-Function"
+        },
+        "synopsis": {
+            "type": "parameter",
+            "isRequired": true,
+            "replaces": "Serves as a placeholder"
+        },
+        "description": {
+            "type": "parameter",
+            "isRequired": true,
+            "replaces": "Explains the placeholder"
+        },
+        "exampleUsage": {
+            "type": "parameter",
+            "isRequired": true,
+            "replaces": "Invoke-Thing"
+        }
+    }
+}

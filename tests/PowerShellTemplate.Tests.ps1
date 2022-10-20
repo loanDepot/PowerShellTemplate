@@ -1,13 +1,56 @@
-﻿$ModuleUnderTest = Split-Path (Split-Path $PSScriptRoot -Parent) -Leaf
+param($Script:ModuleName = $ModuleName)
 
-if (!(Get-Module $ModuleUnderTest -ErrorAction SilentlyContinue)) {
-    Import-Module $ModuleUnderTest -Scope Global
-}
+Describe $ModuleName {
+    BeforeAll {
+        $command = InModuleScope $ModuleName {
+            Get-Command -Module $ModuleName -Type Function, Cmdlet | ForEach-Object {
+                @{
+                    Name = $_.Name
+                }
+            }
+        }
 
-if ($QMBuild = Get-Module QMBuild -ListAvailable | Sort-Object Version -Descending | Select-Object -First 1) {
-    Write-Verbose "Running Script Analyzer common tests for $($ModuleUnderTest)"
-    $CommonTests = Join-Path $QMBuild.ModuleBase CommonTests\Module.Tests.ps1
-    if (Test-Path $CommonTests) {
-        . $CommonTests -ModuleUnderTest $ModuleUnderTest
+        $tests = Get-ChildItem -Path "$PSScriptRoot\.." -Filter "*.Tests.ps1" -Recurse -Name
+
+        $commandHelp = foreach ($command in $commands) {
+            $help = Get-Help -Name $command.Name
+            $parameters = $command.Parameters.Keys.Where{ $_ -notin [System.Management.Automation.Cmdlet]::CommonParameters }
+            @{
+                Name        = $command.Name
+                Synopsis    = $help.Synopsis
+                Description = $help.Description
+                Examples    = $help.Examples
+                Parameters  = $parameters.ForEach{
+                    @{
+                        Name        = $command.Parameters["Name"].Name
+                        Description = $help.Parameters.Parameter.Where{ $_.Name -eq "Name" }.Description.Text
+                    }
+                }
+            }
+        }
+    }
+
+    Describe "The <Name> command has help" -ForEach $commandHelp {
+        It "Has a Synopsis" {
+            $Synopsis | Should Not BeNullOrEmpty
+        }
+        It "Has a Description" {
+            $Description | Should Not BeNullOrEmpty
+        }
+
+        It "Has an Example" {
+            $Examples | Should Not BeNullOrEmpty
+            $Examples | Out-String | Should -Match $Name
+        }
+
+        It "Has a description for parameter <Name>" -TestCases $Parameters {
+            $Description | Should Not BeNullOrEmpty
+        }
+    }
+
+    Describe "The <Name> command has tests" -ForEach $command {
+        It "Has a pester tests file" {
+            $Tests -like "*$Name.Tests.ps1" | Should -Exist
+        }
     }
 }

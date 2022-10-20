@@ -1,0 +1,37 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+  //-------- Editor configuration --------
+  "editor.insertSpaces": true,
+  "editor.tabSize": 4,
+
+  //-------- Files configuration --------
+  "files.autoGuessEncoding": false,
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+  "files.defaultLanguage": "powershell",
+  //-------- PowerShell configuration --------
+  "powershell.codeFormatting.preset": "OTBS",
+  "powershell.codeFormatting.autoCorrectAliases": true,
+  "powershell.codeFormatting.alignPropertyValuePairs": true,
+  "powershell.codeFormatting.trimWhitespaceAroundPipe": false,
+  "powershell.codeFormatting.useCorrectCasing": true,
+  "powershell.codeFormatting.pipelineIndentationStyle": "IncreaseIndentationForFirstPipeline",
+  "powershell.scriptAnalysis.settingsPath": "./ScriptAnalyzerSettings.psd1",
+
+  //-------- Language configuration --------
+  "[jsonc]": {
+    "editor.tabSize": 2
+  },
+  "[json]": {
+    "editor.tabSize": 2
+  },
+  "[xml]": {
+    "editor.tabSize": 2
+  },
+  "[yaml]": {
+    "editor.tabSize": 2
+  },
+  "[bicep]": {
+    "editor.tabSize": 2
+  }
+}

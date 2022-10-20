@@ -1,21 +1,21 @@
 ﻿function GetScriptFunctions {
     <#
-        .Synopsis
+        .SYNOPSIS
             Outputs all functions within a Script or ScriptBlock.
 
-        .Description
-            Uses AST to retrieve all functions from a valid script file, 
-            then outputs them all. Useful for dot-sourcing functions from 
+        .DESCRIPTION
+            Uses AST to retrieve all functions from a valid script file,
+            then outputs them all. Useful for dot-sourcing functions from
             a file that also contains running code.
 
-        .Example
+        .EXAMPLE
             GetScriptFunctions -Export -ScriptPath .\testscript.ps1 | iex
 
-        .Example
+        .EXAMPLE
             (GetScriptFunctions -ScriptPath .\testscript.ps1).Count
             7
 
-        .Example
+        .EXAMPLE
             Get-ChildItem -Recurse -Filter *.ps1 | GetScriptFunctions | Set-Content 'functions.psm1'
     #>
     [OutputType([System.Management.Automation.Language.Ast[]])]
@@ -50,7 +50,7 @@
             } catch {
                 Write-Error "Failed to find any functions in File '$($Item)'.`n$_"
             }
- 
+
             if ($Export) {
                 $functions.Extent
             } else {

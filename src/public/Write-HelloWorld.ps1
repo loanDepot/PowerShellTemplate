@@ -1,12 +1,12 @@
 ﻿function Write-HelloWorld {
     <#
-        .Synopsis
+        .SYNOPSIS
             A wrapper for various Write-* commands
 
-        .Description
+        .DESCRIPTION
             This function facilitates writing Hello World! to a variety of streams
-        
-        .Example
+
+        .EXAMPLE
             Write-HelloWorld -Stream Output
             Hello World!
     #>

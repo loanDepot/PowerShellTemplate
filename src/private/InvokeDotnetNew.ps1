@@ -1,13 +1,13 @@
 ﻿function InvokeDotnetNew {
     <#
-        .Synopsis
+        .SYNOPSIS
             Calls dotnet new with any arguments provided to it
 
-        .Example
+        .EXAMPLE
             InvokeDotnetNew --install $Path
 
-        .Example
-            InvokeDotnetNew PowerShellModule --OutputPath $Path
+        .EXAMPLE
+            InvokeDotnetNew PSModule --OutputPath $Path
     #>
     [CmdletBinding()]
     param(

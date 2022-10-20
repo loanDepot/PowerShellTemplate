@@ -1,0 +1,72 @@
+# Docs: https://aka.ms/yaml
+name: $(Build.DefinitionName) v$(Build.BuildId)
+## DELETE THIS LINE: You probably want to specify the pool or image to build with
+# pool: AW2
+
+## DELETE THIS LINE: Make sure this matches your default branch name
+trigger:
+- main
+
+resources:
+  repositories:
+  - repository: InvokeBuildTasks
+    type: git
+    name: InvokeBuildTasks
+    ref: main
+    clean: true
+    fetchDepth: 1
+
+jobs:
+  - job: build
+    displayName: Build module
+    variables:
+      - group: PSModuleToProget
+    workspace:
+      clean: all
+    steps:
+    - checkout: self
+      persistCredentials: true # required for pushing tags
+    - checkout: InvokeBuildTasks
+    - pwsh: .build.ps1 InstallBuildDependencies
+      workingDirectory: $(Build.SourcesDirectory)\$(Build.Repository.Name)
+      displayName: 'Install Dependencies'
+
+    - pwsh: .build.ps1 Build
+      displayName: 'Build'
+      workingDirectory: $(Build.SourcesDirectory)\$(Build.Repository.Name)
+
+    - pwsh: .build.ps1 Test
+      displayName: 'Test'
+      workingDirectory: $(Build.SourcesDirectory)\$(Build.Repository.Name)
+
+    - task: PublishTestResults@2
+      displayName: Publish Test Results
+      inputs:
+        testResultsFormat: NUnit
+        testResultsFiles: $(Build.BinariesDirectory)/TestResult.xml
+        buildPlatform: $(PSPlatform)
+        buildConfiguration: Release
+        failTaskOnFailedTests: true
+        testRunTitle: Pester on $(PSPlatform)
+      condition: succeededOrFailed()
+
+    - task: PublishPipelineArtifact@1
+      displayName: Publish Artifacts
+      inputs:
+        targetPath: $(Build.BinariesDirectory)
+        ArtifactName: Artifacts
+        publishLocation: 'pipeline'
+
+    - pwsh: .build.ps1 TagSource
+      displayName: 'TagSource'
+      workingDirectory: $(Build.SourcesDirectory)\$(Build.Repository.Name)
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+      env:
+        SYSTEM_ACCESSTOKEN: $(System.AccessToken) # required for pushing tags
+
+    - pwsh: .build.ps1 PublishModule
+      displayName: 'PublishModule'
+      workingDirectory: $(Build.SourcesDirectory)\$(Build.Repository.Name)
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+      env:
+        PowerShellModulePublishKey: "$(PowerShellModulePublishKey)"

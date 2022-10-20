@@ -29,9 +29,9 @@
             } -Times 1 -Exactly
         }
 
-        It "Creates the new module from the PowerShellModule template" {
+        It "Creates the new module from the PSModule template" {
             Assert-MockCalled -CommandName InvokeDotnetNew -ModuleName PowerShellTemplate -ParameterFilter {
-                $Arguments -like 'PowerShellModule'
+                $Arguments -like 'PSModule'
             } -Times 1 -Exactly
         }
     }
@@ -86,9 +86,9 @@
                 $PSD1.Author | Should Be $env:UserName
             }
 
-            It "Updates the PSD1 with 'Questionmark Computing Limited' as the company name when otherwise unspecified" {
+            It "Updates the PSD1 with 'loanDepot.com, LLC' as the company name when otherwise unspecified" {
                 $PSD1.CompanyName | Should Not Be $Json.Symbols.Company.replaces
-                $PSD1.CompanyName | Should Be 'Questionmark Computing Limited'
+                $PSD1.CompanyName | Should Be 'loanDepot.com, LLC'
             }
         }
     }

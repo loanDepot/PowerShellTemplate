@@ -18,7 +18,7 @@
     # For best performance, do not use wildcards and do not delete this entry!
     # Use an empty array if there is nothing to export.
     AliasesToExport        = @()
-    
+
     # Variables to export.
     # For best performance, do not use wildcards and do not delete this entry!
     # Use an empty array if there is nothing to export.
@@ -26,16 +26,16 @@
 
 
     # ID used to uniquely identify this module
-    GUID                   = 'af8481bc-5027-4bbf-a8bf-42ccadd4c885'
-    Description            = 'The Questionmark PowerShell Template Module'
+    GUID                   = 'c3a4c064-f441-4b05-b08f-b65d2b20072c'
+    Description            = 'A Template for PowerShell Modules'
 
     # The main script or binary module that is automatically loaded as part of this module
     RootModule             = 'PowerShellTemplate.psm1'
 
     # Common stuff for all our modules:
-    CompanyName            = 'Questionmark Computing Limited'
-    Author                 = 'Team Forge'
-    Copyright              = "Copyright 2018 Questionmark Computing Limited"
+    CompanyName            = 'loanDepot.com, LLC'
+    Author                 = 'DevOps Heroes'
+    Copyright              = "Copyright 2022 loanDepot.com, LLC"
 
     # Minimum version of the Windows PowerShell engine required by this module
     PowerShellVersion      = '5.1'
@@ -43,7 +43,7 @@
     DotNetFrameworkVersion = '4.0'
     # Minimum version of the common language runtime (CLR) required by this module
     CLRVersion             = '4.0.30319'
-    
+
     # PrivateData gets passed to the module at runtime, but is required for publishing with PowerShellGet and building with ModuleBuilder.
     PrivateData            = @{
         # Settings for publishing to the PowerShell gallery:
@@ -56,7 +56,7 @@
             # Optional tags for module discovery.
             # Tags = @()
 
-            # A URL to the license for this module 
+            # A URL to the license for this module
             # LicenseUri = ''
 
             # A URL to the main website for this project.
