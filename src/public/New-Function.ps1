@@ -7,7 +7,7 @@
             Explains the placeholder
 
         .EXAMPLE
-            New-Function
+            Invoke-Thing -Parameter 'Value'
 
             Serves as a placeholder
     #>

@@ -25,9 +25,9 @@ Describe "New-Function" {
 
     # We cannot guarantee that the build server has the prerequisite dotnet installation
     # So we test the function to see that it proceeds as we'd expect.
-    Context "Example 1: Invoke-Thing" {
+    Context "Example 1: Invoke-Thing -Parameter 'Value'" {
         It "Serves as a placeholder" {
-            $result = Invoke-Thing
+            $result = Invoke-Thing -Parameter 'Value'
             $result | Should -Be "something"
         }
     }
